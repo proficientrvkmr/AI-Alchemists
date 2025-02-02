@@ -14,44 +14,11 @@ set TARGET_GROUP_ARN=arn:aws:elasticloadbalancing:us-east-1:487042707842:targetg
 set LOAD_BALANCER_NAME=ps-hackthon-lb
 set CONTAINER_PORT=8080
 
-REM Check if container engine is available
-where %CONTAINER_ENGINE% >nul 2>nul
-if %errorlevel% neq 0 (
-    echo Error: %CONTAINER_ENGINE% is not installed or not in PATH.
-    exit /b 1
-)
 
-REM Step 1: Build the Spring Boot application using Gradle
-echo Building the Spring Boot application...
-call gradlew.bat build -x test || (
-    echo Gradle build failed!
-    exit /b 1
-)
-
-REM Step 2: Build the Docker image using the specified container engine
-echo Building the Docker image with %CONTAINER_ENGINE%...
-call %CONTAINER_ENGINE% build -t %APP_NAME% . || (
-    echo Docker image build failed!
-    exit /b 1
-)
 
 REM Step 3: Authenticate the container engine to the ECR registry
 echo Authenticating %CONTAINER_ENGINE% to ECR...
 aws ecr-public get-login-password --region %AWS_REGION% --profile %AWS_PROFILE% | %CONTAINER_ENGINE% login --username AWS --password-stdin public.ecr.aws || exit /b
-
-REM Step 4: Tag the Docker image for public ECR
-echo Tagging the Docker image for public ECR...
-call %CONTAINER_ENGINE% tag %APP_NAME%:latest %ECR_REPO%:%DOCKER_IMAGE_TAG% || (
-    echo Docker image tagging failed!
-    exit /b 1
-)
-
-REM Step 5: Push the Docker image to public ECR
-echo Pushing the Docker image to public ECR...
-call %CONTAINER_ENGINE% push %ECR_REPO%:%DOCKER_IMAGE_TAG% || (
-    echo Docker image push failed!
-    exit /b 1
-)
 
 REM Step 6: Register the latest ECS task definition
 echo Registering the latest ECS task definition...
