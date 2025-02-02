@@ -1,0 +1,33 @@
+{
+  "family": "ps-circle-core-app",
+  "networkMode": "awsvpc",
+  "containerDefinitions": [
+    {
+      "name": "ps-circle-core-app",
+      "image": "public.ecr.aws/v6r7u1w6/ps-hackathon-25/ps-circle-core-repo:latest",
+      "memory": 512,
+      "cpu": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+             "hostPort": 8080,
+             "protocol": "tcp"
+           }
+         ],
+         "environment": [
+           {
+             "name": "SPRING_PROFILES_ACTIVE",
+             "value": "prod"
+           }
+         ]
+       }
+     ],
+     "requiresCompatibilities": [
+       "FARGATE"
+     ],
+     "cpu": "256",
+     "memory": "512",
+     "executionRoleArn": "arn:aws:iam::487042707842:role/ecsTaskExecutionRole",
+     "taskRoleArn": "arn:aws:iam::487042707842:role/ecsTaskRole"
+   }
