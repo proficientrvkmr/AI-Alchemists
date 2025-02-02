@@ -1,8 +1,8 @@
-package com.pscircle.ai.user.controller;
+package com.pscircle.ai.controller;
 
-import com.pscircle.ai.user.models.SurveyQuestion;
-import com.pscircle.ai.user.models.response.SurveyResponse;
-import com.pscircle.ai.user.service.SurveyService;
+import com.pscircle.ai.models.SurveyQuestion;
+import com.pscircle.ai.models.response.SurveyResponse;
+import com.pscircle.ai.service.SurveyService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

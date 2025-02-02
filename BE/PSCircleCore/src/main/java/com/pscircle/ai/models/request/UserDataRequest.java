@@ -1,4 +1,4 @@
-package com.pscircle.ai.user.models.request;
+package com.pscircle.ai.models.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

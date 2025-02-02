@@ -1,5 +1,5 @@
-package com.pscircle.ai.commons;
+package com.pscircle.ai.models.commons;
 
-public enum WorklowState {
+public enum WorkflowState {
     INTERESTS, ASPIRATIONS, EMOTIONAL_INTELLIGENCE, ABOUT, ONBOARDED
 }

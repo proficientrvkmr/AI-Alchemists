@@ -1,5 +1,4 @@
-package com.pscircle.ai.user.models.response;
-
+package com.pscircle.ai.models;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SurveyResponse {
+public class SurveyQuestion {
     private String questionId;
-    private int rating; // Rating from 1 to 5
+    private String questionText;
 }

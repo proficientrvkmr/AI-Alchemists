@@ -38,3 +38,5 @@ if "%LATEST_TASK_DEF_ARN%"=="" (
 
 echo Creating service...
 call aws ecs create-service --cluster %ECS_CLUSTER% --service-name %ECS_SERVICE% --task-definition %LATEST_TASK_DEF_ARN% --desired-count 1 --launch-type FARGATE --network-configuration "awsvpcConfiguration={subnets=[%SUBNET_IDS%],securityGroups=[%SECURITY_GROUPS%],assignPublicIp=ENABLED}" --load-balancers targetGroupArn=%TARGET_GROUP_ARN%,containerName=%APP_NAME%,containerPort=%CONTAINER_PORT% --profile %AWS_PROFILE%
+
+

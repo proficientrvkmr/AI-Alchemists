@@ -1,4 +1,4 @@
-package com.pscircle.ai.user.models.request;
+package com.pscircle.ai.models.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

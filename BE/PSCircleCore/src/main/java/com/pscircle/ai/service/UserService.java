@@ -1,13 +1,13 @@
-package com.pscircle.ai.user.service;
+package com.pscircle.ai.service;
 
 import com.pscircle.ai.exception.CustomBusinessException;
 import com.pscircle.ai.models.Interest;
-import com.pscircle.ai.user.models.User;
-import com.pscircle.ai.user.models.WorkflowState;
-import com.pscircle.ai.user.models.request.UpdateUserDataRequest;
-import com.pscircle.ai.user.models.request.UserDataRequest;
+import com.pscircle.ai.models.User;
+import com.pscircle.ai.models.commons.WorkflowState;
+import com.pscircle.ai.models.request.UpdateUserDataRequest;
+import com.pscircle.ai.models.request.UserDataRequest;
 import com.pscircle.ai.respository.InterestRepository;
-import com.pscircle.ai.user.repository.UserRepository;
+import com.pscircle.ai.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -144,6 +144,8 @@ public class UserService {
                 case ONBOARDED:
                     user.setNextWorkflowStateCode(null);
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + currentState);
             }
         }
     }

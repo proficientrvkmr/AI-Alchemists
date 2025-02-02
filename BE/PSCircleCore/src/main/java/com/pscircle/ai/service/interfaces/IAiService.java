@@ -1,7 +1,7 @@
-package com.pscircle.ai.user.service.interfaces;
+package com.pscircle.ai.service.interfaces;
 
-import com.pscircle.ai.user.models.SurveyQuestion;
-import com.pscircle.ai.user.models.response.SurveyResponse;
+import com.pscircle.ai.models.SurveyQuestion;
+import com.pscircle.ai.models.response.SurveyResponse;
 
 import java.util.List;
 

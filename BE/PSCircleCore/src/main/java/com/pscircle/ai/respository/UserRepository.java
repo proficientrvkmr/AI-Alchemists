@@ -1,6 +1,6 @@
-package com.pscircle.ai.user.repository;
+package com.pscircle.ai.respository;
 
-import com.pscircle.ai.user.models.User;
+import com.pscircle.ai.models.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

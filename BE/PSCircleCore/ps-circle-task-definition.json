@@ -11,23 +11,48 @@
       "portMappings": [
         {
           "containerPort": 8080,
-             "hostPort": 8080,
-             "protocol": "tcp"
-           }
-         ],
-         "environment": [
-           {
-             "name": "SPRING_PROFILES_ACTIVE",
-             "value": "prod"
-           }
-         ]
-       }
-     ],
-     "requiresCompatibilities": [
-       "FARGATE"
-     ],
-     "cpu": "256",
-     "memory": "512",
-     "executionRoleArn": "arn:aws:iam::487042707842:role/ecsTaskExecutionRole",
-     "taskRoleArn": "arn:aws:iam::487042707842:role/ecsTaskRole"
-   }
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "SPRING_PROFILES_ACTIVE",
+          "value": "prod"
+        },
+        {
+          "name": "SPRING_DATA_MONGODB_URI",
+          "value": "mongodb://admin:admin@localhost:27017/pscircledb"
+        }
+      ]
+    },
+    {
+      "name": "mongodb",
+      "image": "mongo:latest",
+      "memory": 256,
+      "cpu": 128,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 27017,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "MONGO_INITDB_ROOT_USERNAME",
+          "value": "admin"
+        },
+        {
+          "name": "MONGO_INITDB_ROOT_PASSWORD",
+          "value": "admin"
+        }
+      ]
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "executionRoleArn": "arn:aws:iam::487042707842:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::487042707842:role/ecsTaskRole"
+}

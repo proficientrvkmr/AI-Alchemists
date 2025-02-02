@@ -1,6 +1,6 @@
-package com.pscircle.ai.user.models;
+package com.pscircle.ai.models;
 
-import com.pscircle.ai.user.models.response.SurveyResponse;
+import com.pscircle.ai.models.response.SurveyResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

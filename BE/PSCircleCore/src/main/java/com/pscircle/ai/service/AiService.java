@@ -1,8 +1,8 @@
-package com.pscircle.ai.user.service;
+package com.pscircle.ai.service;
 
-import com.pscircle.ai.user.models.SurveyQuestion;
-import com.pscircle.ai.user.models.response.SurveyResponse;
-import com.pscircle.ai.user.service.interfaces.IAiService;
+import com.pscircle.ai.models.SurveyQuestion;
+import com.pscircle.ai.models.response.SurveyResponse;
+import com.pscircle.ai.service.interfaces.IAiService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

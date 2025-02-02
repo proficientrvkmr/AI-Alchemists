@@ -1,10 +1,10 @@
-package com.pscircle.ai.user.service;
+package com.pscircle.ai.service;
 
-import com.pscircle.ai.user.models.SurveyQuestion;
-import com.pscircle.ai.user.models.User;
-import com.pscircle.ai.user.models.response.SurveyResponse;
-import com.pscircle.ai.user.repository.UserRepository;
-import com.pscircle.ai.user.service.interfaces.IAiService;
+import com.pscircle.ai.models.SurveyQuestion;
+import com.pscircle.ai.models.User;
+import com.pscircle.ai.models.response.SurveyResponse;
+import com.pscircle.ai.respository.UserRepository;
+import com.pscircle.ai.service.interfaces.IAiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
