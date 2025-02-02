@@ -10,6 +10,9 @@ set CONTAINER_ENGINE=podman
 set DOCKER_IMAGE_TAG=latest
 set SUBNET_IDS=subnet-08865f08947be15c1,subnet-010b1d7b25c26f32d
 set SECURITY_GROUPS=sg-0a803328987f87c53
+set TARGET_GROUP_ARN=arn:aws:elasticloadbalancing:us-east-1:487042707842:targetgroup/ps-hackthon-ecs-ip-target-group/135ac2023dbb3de9
+set LOAD_BALANCER_NAME=ps-hackthon-lb
+set CONTAINER_PORT=8080
 
 REM Check if container engine is available
 where %CONTAINER_ENGINE% >nul 2>nul
@@ -52,23 +55,16 @@ call %CONTAINER_ENGINE% push %ECR_REPO%:%DOCKER_IMAGE_TAG% || (
 
 REM Step 6: Register the latest ECS task definition
 echo Registering the latest ECS task definition...
-aws ecs register-task-definition --cli-input-json file://ps-circle-task-definition.json --profile %AWS_PROFILE% || exit /b
+call aws ecs register-task-definition --cli-input-json file://ps-circle-task-definition.json --profile %AWS_PROFILE%
 
 REM Step 7: Retrieve the latest task definition revision
 echo Retrieving the latest task definition revision...
 for /f "tokens=*" %%i in ('aws ecs describe-task-definition --task-definition %APP_NAME% --query "taskDefinition.taskDefinitionArn" --output text --profile %AWS_PROFILE%') do set LATEST_TASK_DEF_ARN=%%i
+echo Latest task definition ARN: %LATEST_TASK_DEF_ARN%
 
-REM Step 8: Check if the ECS service exists
-echo Checking if the ECS service exists...
-aws ecs describe-services --cluster %ECS_CLUSTER% --services %ECS_SERVICE% --profile %AWS_PROFILE% > nul 2>&1
-
-if %errorlevel% neq 0 (
-    echo ECS service does not exist. Creating service...
-    aws ecs create-service --cluster %ECS_CLUSTER% --service-name %ECS_SERVICE% --task-definition %LATEST_TASK_DEF_ARN% --desired-count 1 --launch-type FARGATE --network-configuration "awsvpcConfiguration={subnets=[%SUBNET_IDS%],securityGroups=[%SECURITY_GROUPS%],assignPublicIp=ENABLED}" --profile %AWS_PROFILE% || exit /b
-) else (
-    echo ECS service exists. Updating service with the latest task definition...
-    aws ecs update-service --cluster %ECS_CLUSTER% --service %ECS_SERVICE% --task-definition %LATEST_TASK_DEF_ARN% --force-new-deployment --profile %AWS_PROFILE% || exit /b
-)
+REM Step 8: Updating ECS service exists
+echo ECS service exists. Updating service with the latest task definition...
+call aws ecs update-service --cluster %ECS_CLUSTER% --service %ECS_SERVICE% --task-definition %LATEST_TASK_DEF_ARN% --force-new-deployment --profile %AWS_PROFILE% || exit /b
 
 echo Deployment completed successfully!
 exit /b 0
